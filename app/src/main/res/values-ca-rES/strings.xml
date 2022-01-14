@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Comptadors</string>
+    <string name="splash_screen_logo">Logo pantalla inicial</string>
+    <string name="counter">COMPTADOR</string>
+    <string name="how_many_counters">Quants comptadors necessites?</string>
+    <string name="identify_counters">POSAR NOMS</string>
+    <string name="count">COMPTAR</string>
+</resources>

@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Counters</string>
+    <string name="splash_screen_logo">Splash screen logo</string>
+    <string name="counter">COUNTER</string>
+    <string name="how_many_counters">How many counters do you need?</string>
+    <string name="identify_counters">GIVE NAMES</string>
+    <string name="count">COUNT</string>
+</resources>
