@@ -5,4 +5,8 @@
     <string name="how_many_counters">How many counters do you need?</string>
     <string name="identify_counters">GIVE NAMES</string>
     <string name="count">COUNT</string>
+    <string name="give_names_to_counters">Give names to counters</string>
+    <string name="with_timer">With Timer</string>
+    <string name="no_timer">No Timer</string>
+    <string name="activate_timer">Activate Timer</string>
 </resources>

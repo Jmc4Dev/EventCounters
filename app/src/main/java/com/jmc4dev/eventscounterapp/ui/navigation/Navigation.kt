@@ -8,11 +8,12 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.jmc4dev.eventscounterapp.ui.screens.*
-import com.jmc4dev.eventscounterapp.viewmodels.GiveNamesViewModel
+import com.jmc4dev.eventscounterapp.viewmodels.CountersViewModel
+import com.jmc4dev.eventscounterapp.viewmodels.MainViewModel
 
 @ExperimentalComposeUiApi
 @Composable
-fun Navigation(namesViewModel: GiveNamesViewModel) {
+fun Navigation(namesViewModel: CountersViewModel, mainViewModel: MainViewModel) {
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination = "splash_screen") {
@@ -20,7 +21,7 @@ fun Navigation(namesViewModel: GiveNamesViewModel) {
             SplashScreen(navController = navController)
         }
         composable(route = Screen.Main.route) {
-            MainScreen(navController = navController)
+            MainScreen(navController = navController, mainViewModel = mainViewModel)
         }
         composable(
             route = Screen.BigCounters.route + "/{counters}",
@@ -31,7 +32,8 @@ fun Navigation(namesViewModel: GiveNamesViewModel) {
                     BigCountersScreen(
                         navController = navController,
                         counters = it,
-                        namesViewModel = namesViewModel
+                        namesViewModel = namesViewModel,
+                        mainViewModel = mainViewModel
                     )
                 }
         }
@@ -44,7 +46,8 @@ fun Navigation(namesViewModel: GiveNamesViewModel) {
                     SmallCountersScreen(
                         navController = navController,
                         counters = it,
-                        namesViewModel = namesViewModel
+                        namesViewModel = namesViewModel,
+                        mainViewModel = mainViewModel
                     )
                 }
         }
@@ -57,10 +60,10 @@ fun Navigation(namesViewModel: GiveNamesViewModel) {
                     GiveNamesScreen(
                         navController = navController,
                         counters = it,
-                        namesViewModel = namesViewModel
+                        namesViewModel = namesViewModel,
+                        mainViewModel = mainViewModel
                     )
                 }
-
         }
     }
 }

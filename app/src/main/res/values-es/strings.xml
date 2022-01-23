@@ -6,4 +6,8 @@
     <string name="how_many_counters">¿Cuantos contadores necesitas?</string>
     <string name="identify_counters">PONER NOMBRES</string>
     <string name="count">CONTAR</string>
+    <string name="give_names_to_counters">Poner nombres a los contadores</string>
+    <string name="with_timer">Con Cronómetro</string>
+    <string name="no_timer">Sin Cronómetro</string>
+    <string name="activate_timer">Activar Cronómetro</string>
 </resources>

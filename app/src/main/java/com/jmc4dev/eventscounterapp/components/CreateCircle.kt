@@ -10,6 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
@@ -25,6 +26,7 @@ fun CreateCircle(size: Dp, fontSize: TextUnit, counter: Int = 1, updateCounter: 
             }
             .size(size),
         shape = CircleShape,
+        backgroundColor = Color.DarkGray,
         elevation = 4.dp
     ) {
         Box(
@@ -33,7 +35,8 @@ fun CreateCircle(size: Dp, fontSize: TextUnit, counter: Int = 1, updateCounter: 
             Text(
                 text = "$counter",
                 fontSize = fontSize,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
+                color = Color.White
             )
         }
     }

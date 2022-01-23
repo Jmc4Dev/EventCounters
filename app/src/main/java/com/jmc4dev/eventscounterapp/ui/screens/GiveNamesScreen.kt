@@ -2,15 +2,16 @@ package com.jmc4dev.eventscounterapp.ui.screens
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -19,14 +20,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.jmc4dev.eventscounterapp.components.CustomButton
 import com.jmc4dev.eventscounterapp.ui.navigation.Screen
-import com.jmc4dev.eventscounterapp.viewmodels.GiveNamesViewModel
+import com.jmc4dev.eventscounterapp.viewmodels.CountersViewModel
+import com.jmc4dev.eventscounterapp.viewmodels.MainViewModel
 import eventscounterapp.R
 
 @ExperimentalComposeUiApi
@@ -34,65 +36,80 @@ import eventscounterapp.R
 fun GiveNamesScreen(
     navController: NavController,
     counters: Int,
-    namesViewModel: GiveNamesViewModel
+    namesViewModel: CountersViewModel,
+    mainViewModel: MainViewModel
 ) {
     val countersList = namesViewModel.countersList
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(horizontal = 16.dp, vertical = 8.dp),
-        verticalArrangement = Arrangement.Top,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 20.dp, vertical = 8.dp),
-            text = "Give names to counters",
-            textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.h5
-        )
-        for (i in 1..counters) {
-            IdentifyCounter(
-                counter = i,
-                totalCounters = counters,
-                name = countersList.value[i - 1].value,
-                updateName = { newEntry ->
-                    countersList.value[i - 1].value = newEntry
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text(text = stringResource(id = R.string.app_name)) },
+                modifier = Modifier,
+                elevation = 4.dp,
+                backgroundColor = Color.DarkGray,
+                contentColor = Color.White,
+                navigationIcon = {
+                    Icon(
+                        modifier = Modifier.clickable { navController.popBackStack() },
+                        imageVector = Icons.Default.ArrowBack,
+                        contentDescription = "Go Back"
+                    )
                 }
             )
         }
-        CountButton(navController = navController, counters = counters)
-    }
-}
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = 16.dp, vertical = 8.dp),
+            verticalArrangement = Arrangement.Top,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 20.dp, vertical = 8.dp),
+                text = stringResource(id = R.string.give_names_to_counters),
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.h5
+            )
+            LazyColumn(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Top
+            ) {
+                items(counters) { i ->
+                    IdentifyCounter(
+                        counter = i + 1,
+                        totalCounters = counters,
+                        name = countersList.value[i].value,
+                        updateName = { newEntry ->
+                            countersList.value[i].value = newEntry
+                        }
+                    )
+                }
+            }
 
-@Composable
-fun CountButton(navController: NavController, counters: Int) {
-    Button(
-        modifier = Modifier.padding(4.dp),
-        shape = RoundedCornerShape(10.dp),
-        colors = ButtonDefaults.buttonColors(
-            backgroundColor = MaterialTheme.colors.background,
-            contentColor = Color.Black
-        ),
-        border = BorderStroke(width = 2.dp, color = Color.Black),
-        onClick = {
-            if (counters < 3) {
-                navController.popBackStack()
-                navController.navigate(Screen.BigCounters.route + "/${counters}")
-            }
-            else {
-                navController.popBackStack()
-                navController.navigate(Screen.SmallCounters.route + "/${counters}")
-            }
-        }) {
-        Text(
-            modifier = Modifier.padding(4.dp),
-            text = stringResource(R.string.count),
-            style = MaterialTheme.typography.button,
-            fontWeight = FontWeight.Bold
-        )
+            CustomButton(
+                shape = RoundedCornerShape(12.dp),
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = Color.DarkGray,
+                    contentColor = Color.White
+                ),
+                border = BorderStroke(width = 2.dp, color = Color.Black),
+                onClick = {
+                    mainViewModel.resetTimers()
+                    if (counters < 3) {
+                        navController.popBackStack()
+                        navController.navigate(Screen.BigCounters.route + "/${counters}")
+                    } else {
+                        navController.popBackStack()
+                        navController.navigate(Screen.SmallCounters.route + "/${counters}")
+                    }
+                },
+                text = stringResource(R.string.count)
+            )
+        }
     }
 }
 

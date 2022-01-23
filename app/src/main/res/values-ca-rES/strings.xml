@@ -6,4 +6,8 @@
     <string name="how_many_counters">Quants comptadors necessites?</string>
     <string name="identify_counters">POSAR NOMS</string>
     <string name="count">COMPTAR</string>
+    <string name="give_names_to_counters">Posar noms als comptadors</string>
+    <string name="with_timer">Amb Cronòmetre</string>
+    <string name="no_timer">Sense Cronòmetre</string>
+    <string name="activate_timer">Activar Cronòmetre</string>
 </resources>

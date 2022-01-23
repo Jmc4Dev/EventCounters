@@ -30,7 +30,7 @@ fun CustomSlider(
             text = message,
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.h6,
-            color = MaterialTheme.colors.onPrimary
+            color = Color.DarkGray
         )
         Spacer(modifier = Modifier.height(40.dp))
         Card(
@@ -42,13 +42,13 @@ fun CustomSlider(
             Column(
                 modifier = Modifier
                     .padding(16.dp)
-                    .background(color = MaterialTheme.colors.background),
+                    .background(color = Color.White),
             ) {
                 Slider(
                     value = sliderValue,
                     onValueChange = { newValue -> onValueChanged(newValue) },
                     valueRange = 1f..numberOfOptions.toFloat(),
-                    steps = numberOfOptions - 2
+                    steps = if (numberOfOptions >= 2 ) numberOfOptions - 2 else 0
                 )
                 Row(
                     modifier = Modifier
@@ -59,6 +59,7 @@ fun CustomSlider(
                         Text(
                             text = "$i",
                             style = MaterialTheme.typography.h4,
+                            color = Color.DarkGray
                         )
                     }
                 }

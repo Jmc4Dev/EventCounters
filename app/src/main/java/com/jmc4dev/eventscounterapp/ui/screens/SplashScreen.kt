@@ -26,9 +26,7 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun SplashScreen(navController: NavController) {
-    val scale = remember {
-        Animatable(0f)
-    }
+    val scale = remember { Animatable(0f) }
     // key1 = true forces this screen to only be launched the first time we enter the app
     LaunchedEffect(key1 = true) {
         scale.animateTo(
@@ -52,14 +50,14 @@ fun SplashScreen(navController: NavController) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                color = Color.White,
+                color = Color.DarkGray,
                 text = stringResource(R.string.counter),
                 fontSize = 12.sp
             )
             Icon(
                 imageVector = Icons.Default.AddCircle,
                 contentDescription = stringResource(id = R.string.splash_screen_logo),
-                tint = Color.White
+                tint = Color.DarkGray
             )
 
         }
