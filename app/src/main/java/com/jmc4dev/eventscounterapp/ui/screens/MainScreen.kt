@@ -47,7 +47,7 @@ fun MainScreen(
             CustomSlider(
                 modifier = Modifier.padding(horizontal = 40.dp),
                 message = stringResource(R.string.how_many_counters),
-                numberOfOptions = 5,
+                numberOfOptions = 4,
                 sliderValue = sliderValue.value
             ) { newValue ->
                 sliderValue.value = newValue

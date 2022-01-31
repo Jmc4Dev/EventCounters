@@ -13,6 +13,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -21,6 +22,8 @@ import com.jmc4dev.eventscounterapp.components.TimerControlsRow
 import com.jmc4dev.eventscounterapp.ui.CreateCircle
 import com.jmc4dev.eventscounterapp.viewmodels.CountersViewModel
 import com.jmc4dev.eventscounterapp.viewmodels.MainViewModel
+import com.jmc4dev.eventscounterapp.viewmodels.keepScreen
+import com.jmc4dev.eventscounterapp.viewmodels.resetScreenData
 import eventscounterapp.R
 import kotlinx.coroutines.Dispatchers
 
@@ -47,30 +50,20 @@ fun SmallCountersScreen(
             fontSize = 35.sp
         }
         4 -> {
-            size = 100.dp
-            fontSize = 35.sp
-        }
-        5 -> {
             size = 90.dp
             fontSize = 33.sp
         }
     }
 
-    val countersNamesList = namesViewModel.countersList
-    val countersList = mutableListOf<MutableState<Int>>()
-    for (i in 1..counters) {
-        countersList.add(rememberSaveable { mutableStateOf(0) })
-    }
+    val countersNamesList = namesViewModel.countersObjectList
+    val countersList = mainViewModel.countersList
     val activateTimer = mainViewModel.activateTimer
-    val runTimer = mainViewModel.runTimer
-    val tenths = mainViewModel.tenthsOfSecond
-    val seconds = mainViewModel.seconds
-    val minutes = mainViewModel.minutes
-    val tenthsLap = mainViewModel.tenthsOfSecondLap
-    val secondsLap = mainViewModel.secondsLap
-    val minutesLap = mainViewModel.minutesLap
+    val mainTimer = mainViewModel.mainTimer
 
     val scope = rememberCoroutineScope { Dispatchers.Main }
+    // turn on the keep_screen_on flag for this screen
+    val context = LocalContext.current
+    keepScreen(true, context)
 
     Scaffold(
         topBar = {
@@ -82,7 +75,15 @@ fun SmallCountersScreen(
                 contentColor = Color.White,
                 navigationIcon = {
                     Icon(
-                        modifier = Modifier.clickable { navController.popBackStack() },
+                        modifier = Modifier.clickable {
+                            // turn on the keep_screen_on flag for this screen
+                            keepScreen(false, context)
+                            resetScreenData(
+                                namesViewModel = namesViewModel,
+                                mainViewModel = mainViewModel
+                            )
+                            navController.popBackStack()
+                        },
                         imageVector = Icons.Default.ArrowBack,
                         contentDescription = "Go Back"
                     )
@@ -97,18 +98,20 @@ fun SmallCountersScreen(
         ) {
             if (activateTimer.value) {
                 TimerControlsRow(
+                    navController = navController,
                     boxSize = 40.dp,
                     iconSize = 60.dp,
-                    runTimer = runTimer,
+                    mainViewModel = mainViewModel,
+                    countersNamesList = namesViewModel,
                     scope = scope,
-                    activateTimer = activateTimer,
-                    tenths = tenths,
-                    seconds = seconds,
-                    minutes = minutes,
-                    delayTime = 99L,
-                    tenthsLap = tenthsLap,
-                    secondsLap = secondsLap,
-                    minutesLap = minutesLap
+                    delayTime = 97L
+                )
+            }
+            if (activateTimer.value) {
+                val timeFormatted = mainViewModel.getTimeFormatted(mainTimer.value)
+                Text(
+                    text = timeFormatted,
+                    fontSize = 20.sp
                 )
             }
             for (i in 1..counters) {
@@ -123,19 +126,32 @@ fun SmallCountersScreen(
                         verticalArrangement = Arrangement.Top
                     ) {
                         Text(
-                            text = countersNamesList.value[i - 1].value,
+                            text = countersNamesList.value[i - 1].counterName,
                             style = MaterialTheme.typography.h4,
                             color = Color.DarkGray
                         )
                         if (activateTimer.value) {
-                            val minutesFormatted = String.format("%02d", minutes.value)
-                            val secondsFormatted = String.format("%02d", seconds.value)
-                            val tenthsFormatted = String.format("%01d", tenths.value)
-                            Text(
-                                text = if (runTimer.value) "$minutesFormatted:$secondsFormatted"
-                                else "$minutesFormatted:$secondsFormatted.$tenthsFormatted",
-                                fontSize = 18.sp
-                            )
+                            Row(
+                                modifier = Modifier
+                                    .padding(4.dp),
+                                horizontalArrangement = Arrangement.SpaceEvenly,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text(
+                                    text = if (countersNamesList.value[i - 1].laps.size > 0) countersNamesList.value[i - 1].laps.last()
+                                    else "00:00",
+                                    fontSize = 18.sp
+                                )
+                                Spacer(modifier = Modifier.width(12.dp))
+                                Text(
+                                    text = if (mainViewModel.countersLaps.size > 0) mainViewModel.getTimeFormatted(
+                                        mainViewModel.countersLaps[i - 1].value
+                                    )
+                                    else "00:00",
+                                    fontSize = 18.sp
+                                )
+
+                            }
                         }
                     }
                     CreateCircle(
@@ -144,10 +160,14 @@ fun SmallCountersScreen(
                         counter = countersList[i - 1].value
                     ) { newValue ->
                         countersList[i - 1].value = newValue
+                        countersNamesList.value[i - 1].counterValue = newValue
+                        countersNamesList.value[i - 1].laps.add(
+                            mainViewModel.getTimeFormatted(mainViewModel.countersLaps[i - 1].value)
+                        )
+                        mainViewModel.resetLapTimer(i - 1)
                     }
                 }
             }
         }
     }
 }
-

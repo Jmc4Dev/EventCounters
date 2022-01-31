@@ -12,6 +12,8 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -39,7 +41,7 @@ fun GiveNamesScreen(
     namesViewModel: CountersViewModel,
     mainViewModel: MainViewModel
 ) {
-    val countersList = namesViewModel.countersList
+    val countersList = namesViewModel.countersObjectList
 
     Scaffold(
         topBar = {
@@ -79,12 +81,14 @@ fun GiveNamesScreen(
                 verticalArrangement = Arrangement.Top
             ) {
                 items(counters) { i ->
+                    val name = remember { mutableStateOf(countersList.value[i].counterName) }
                     IdentifyCounter(
                         counter = i + 1,
                         totalCounters = counters,
-                        name = countersList.value[i].value,
+                        name = name.value,
                         updateName = { newEntry ->
-                            countersList.value[i].value = newEntry
+                            name.value = newEntry
+                            countersList.value[i].counterName = newEntry
                         }
                     )
                 }

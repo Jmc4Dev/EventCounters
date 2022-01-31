@@ -39,8 +39,9 @@ fun SplashScreen(navController: NavController) {
             ),
         )
         delay(1000L)
-        navController.popBackStack()
-        navController.navigate("main_screen")
+        navController.navigate("main_screen") {
+            popUpTo("splash_screen") { inclusive = true }
+        }
     }
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         Column(

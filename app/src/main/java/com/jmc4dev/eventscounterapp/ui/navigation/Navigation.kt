@@ -1,5 +1,6 @@
 package com.jmc4dev.eventscounterapp.ui.navigation
 
+import android.view.WindowManager
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.navigation.NavType
@@ -16,7 +17,7 @@ import com.jmc4dev.eventscounterapp.viewmodels.MainViewModel
 fun Navigation(namesViewModel: CountersViewModel, mainViewModel: MainViewModel) {
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = "splash_screen") {
+    NavHost(navController = navController, startDestination = Screen.Splash.route) {
         composable(route = Screen.Splash.route) {
             SplashScreen(navController = navController)
         }
@@ -64,6 +65,9 @@ fun Navigation(namesViewModel: CountersViewModel, mainViewModel: MainViewModel) 
                         mainViewModel = mainViewModel
                     )
                 }
+        }
+        composable(route = Screen.Results.route) {
+            ResultsScreen(navController = navController, namesViewModel = namesViewModel)
         }
     }
 }

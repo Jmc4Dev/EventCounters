@@ -9,4 +9,5 @@
     <string name="with_timer">With Timer</string>
     <string name="no_timer">No Timer</string>
     <string name="activate_timer">Activate Timer</string>
+    <string name="results">Results</string>
 </resources>

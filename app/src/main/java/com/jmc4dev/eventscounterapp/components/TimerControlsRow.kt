@@ -8,33 +8,33 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.jmc4dev.eventscounterapp.ui.navigation.Screen
+import com.jmc4dev.eventscounterapp.viewmodels.CountersViewModel
+import com.jmc4dev.eventscounterapp.viewmodels.MainViewModel
+import com.jmc4dev.eventscounterapp.viewmodels.resetScreenData
+import com.jmc4dev.eventscounterapp.viewmodels.showDataStored
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @Composable
 fun TimerControlsRow(
+    navController: NavController,
     modifier: Modifier = Modifier,
     boxSize: Dp,
     iconSize: Dp,
-    runTimer: MutableState<Boolean>,
+    mainViewModel: MainViewModel,
+    countersNamesList: CountersViewModel,
     scope: CoroutineScope,
-    activateTimer: MutableState<Boolean>,
-    tenths: MutableState<Int>,
-    seconds: MutableState<Int>,
-    minutes: MutableState<Int>,
-    delayTime: Long = 1000L,
-    tenthsLap: MutableState<Int>,
-    secondsLap: MutableState<Int>,
-    minutesLap: MutableState<Int>
+    delayTime: Long = 1000L
 ) {
-    if (activateTimer.value) {
+    if (mainViewModel.activateTimer.value) {
         Row(
             modifier = modifier
                 .fillMaxWidth()
@@ -43,11 +43,13 @@ fun TimerControlsRow(
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            if (runTimer.value) {
+            if (mainViewModel.runTimer.value) {
                 Box(modifier = Modifier
                     .size(boxSize)
                     .clickable {
-                        runTimer.value = false
+                        mainViewModel.runTimer.value = false
+                        showDataStored(countersNamesList)
+                        navController.navigate(Screen.Results.route)
                     }
                     .background(Color(0xFFB90202))
                 )
@@ -56,21 +58,12 @@ fun TimerControlsRow(
                     modifier = Modifier
                         .size(iconSize)
                         .clickable {
-                            runTimer.value = true
+                            mainViewModel.runTimer.value = true
                             scope.launch {
-                                while (activateTimer.value && runTimer.value) {
+                                while (mainViewModel.activateTimer.value && mainViewModel.runTimer.value) {
                                     delay(delayTime)
-                                    if (tenths.value < 9)
-                                        tenths.value += 1
-                                    else {
-                                        tenths.value = 0
-                                        if (seconds.value < 59)
-                                            seconds.value += 1
-                                        else {
-                                            seconds.value = 0
-                                            minutes.value += 1
-                                        }
-                                    }
+                                    mainViewModel.mainTimer.value += 1
+                                    mainViewModel.updateCounterLaps()
                                 }
                             }
                         },
@@ -82,10 +75,11 @@ fun TimerControlsRow(
                     modifier = Modifier
                         .size(iconSize)
                         .clickable {
-                            if (activateTimer.value && !runTimer.value) {
-                                tenths.value = 0
-                                seconds.value = 0
-                                minutes.value = 0
+                            if (mainViewModel.activateTimer.value) {
+                                resetScreenData(
+                                    namesViewModel = countersNamesList,
+                                    mainViewModel = mainViewModel
+                                )
                             }
                         },
                     imageVector = Icons.Default.Refresh,
@@ -96,3 +90,4 @@ fun TimerControlsRow(
         }
     }
 }
+

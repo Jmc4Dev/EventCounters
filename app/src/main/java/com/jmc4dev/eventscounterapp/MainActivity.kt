@@ -1,6 +1,7 @@
 package com.jmc4dev.eventscounterapp
 
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -31,8 +32,10 @@ class MainActivity : ComponentActivity() {
                         namesViewModel = namesViewModel,
                         mainViewModel = mainViewModel
                     )
+                    window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
                 }
             }
+            window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         }
     }
 }

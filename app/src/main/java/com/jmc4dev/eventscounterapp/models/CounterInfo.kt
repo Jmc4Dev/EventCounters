@@ -1,7 +1,8 @@
 package com.jmc4dev.eventscounterapp.models
 
 data class CounterInfo(
-    val counterName: String = "",
-    val counterValue: Int = 0,
-    val laps: MutableList<String> = mutableListOf()
+    var counterName: String = "",
+    var counterValue: Int = 0,
+    var laps: MutableList<String> = mutableListOf()
 )
+

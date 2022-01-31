@@ -6,4 +6,5 @@ sealed class Screen(val route: String) {
     object BigCounters: Screen("big_counter_screen")
     object SmallCounters: Screen("small_counter_screen")
     object GiveNames: Screen("give_names_screen")
+    object Results: Screen("results_screen")
 }
