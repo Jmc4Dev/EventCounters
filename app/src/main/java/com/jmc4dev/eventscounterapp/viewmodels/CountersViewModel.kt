@@ -12,7 +12,7 @@ class CountersViewModel(): ViewModel() {
 
     init{
         viewModelScope.launch {
-            for (i in 1..4) {
+            for (i in 1..5) {
                 countersObjectList.value.add(CounterInfo())
             }
         }

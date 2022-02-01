@@ -17,7 +17,7 @@ class MainViewModel : ViewModel() {
 
     init {
         viewModelScope.launch {
-            for (i in 1..4) {
+            for (i in 1..5) {
                 countersLaps.add(mutableStateOf(0))
                 countersList.add(mutableStateOf(0))
             }

@@ -87,8 +87,14 @@ fun GiveNamesScreen(
                         totalCounters = counters,
                         name = name.value,
                         updateName = { newEntry ->
-                            name.value = newEntry
-                            countersList.value[i].counterName = newEntry
+                            if (newEntry.length < 11) {
+                                name.value = newEntry
+                                countersList.value[i].counterName = newEntry
+                            }
+                            else {
+                                name.value = name.value
+                                countersList.value[i].counterName = name.value
+                            }
                         }
                     )
                 }

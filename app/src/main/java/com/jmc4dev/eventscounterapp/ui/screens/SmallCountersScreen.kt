@@ -53,13 +53,17 @@ fun SmallCountersScreen(
             size = 90.dp
             fontSize = 33.sp
         }
+        5 -> {
+            size = 82.dp
+            fontSize = 31.sp
+        }
     }
 
     val countersNamesList = namesViewModel.countersObjectList
     val countersList = mainViewModel.countersList
     val activateTimer = mainViewModel.activateTimer
     val mainTimer = mainViewModel.mainTimer
-
+    val runTimer = mainViewModel.runTimer
     val scope = rememberCoroutineScope { Dispatchers.Main }
     // turn on the keep_screen_on flag for this screen
     val context = LocalContext.current
@@ -118,8 +122,8 @@ fun SmallCountersScreen(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 20.dp, vertical = 8.dp),
-                    horizontalArrangement = Arrangement.SpaceAround
+                        .padding(horizontal = 40.dp, vertical = 6.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally,
@@ -127,7 +131,7 @@ fun SmallCountersScreen(
                     ) {
                         Text(
                             text = countersNamesList.value[i - 1].counterName,
-                            style = MaterialTheme.typography.h4,
+                            style = MaterialTheme.typography.h5,
                             color = Color.DarkGray
                         )
                         if (activateTimer.value) {
@@ -159,12 +163,16 @@ fun SmallCountersScreen(
                         fontSize = fontSize,
                         counter = countersList[i - 1].value
                     ) { newValue ->
-                        countersList[i - 1].value = newValue
-                        countersNamesList.value[i - 1].counterValue = newValue
-                        countersNamesList.value[i - 1].laps.add(
-                            mainViewModel.getTimeFormatted(mainViewModel.countersLaps[i - 1].value)
-                        )
-                        mainViewModel.resetLapTimer(i - 1)
+                        // When the user needs the timers, do not allow to click the counter if
+                        // the  timers are not running
+                        if (runTimer.value || activateTimer.value) {
+                            countersList[i - 1].value = newValue
+                            countersNamesList.value[i - 1].counterValue = newValue
+                            countersNamesList.value[i - 1].laps.add(
+                                mainViewModel.getTimeFormatted(mainViewModel.countersLaps[i - 1].value)
+                            )
+                            mainViewModel.resetLapTimer(i - 1)
+                        }
                     }
                 }
             }

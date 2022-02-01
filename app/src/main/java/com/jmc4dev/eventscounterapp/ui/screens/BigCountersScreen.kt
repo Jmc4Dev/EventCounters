@@ -38,7 +38,7 @@ fun BigCountersScreen(
 
     val activateTimer = mainViewModel.activateTimer
     val mainTimer = mainViewModel.mainTimer
-
+    val runTimer = mainViewModel.runTimer
     val scope = rememberCoroutineScope { Dispatchers.Main }
     // turn on the keep_screen_on flag for this screen
     val context = LocalContext.current
@@ -108,12 +108,16 @@ fun BigCountersScreen(
                         fontSize = 36.sp,
                         counter = countersList[i - 1].value
                     ) { newValue ->
-                        countersList[i - 1].value = newValue
-                        countersNamesList.value[i - 1].counterValue = newValue
-                        countersNamesList.value[i - 1].laps.add(
-                            mainViewModel.getTimeFormatted(mainViewModel.countersLaps[i - 1].value)
-                        )
-                        mainViewModel.resetLapTimer(i - 1)
+                        // When the user needs the timers, do not allow to click the counter if
+                        // the  timers are not running
+                        if (runTimer.value || !activateTimer.value) {
+                            countersList[i - 1].value = newValue
+                            countersNamesList.value[i - 1].counterValue = newValue
+                            countersNamesList.value[i - 1].laps.add(
+                                mainViewModel.getTimeFormatted(mainViewModel.countersLaps[i - 1].value)
+                            )
+                            mainViewModel.resetLapTimer(i - 1)
+                        }
                     }
                     Spacer(modifier = Modifier.height(4.dp))
                     if (activateTimer.value) {
