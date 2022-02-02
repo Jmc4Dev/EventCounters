@@ -22,6 +22,7 @@ class CountersViewModel(): ViewModel() {
         countersObjectList.value.forEach { counterInfo ->
             counterInfo.counterValue = 0
             counterInfo.laps = mutableListOf()
+            counterInfo.totalTime = 0
         }
     }
 }

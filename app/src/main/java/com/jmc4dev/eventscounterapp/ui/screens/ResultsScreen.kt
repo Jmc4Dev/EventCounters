@@ -26,6 +26,7 @@ import androidx.navigation.NavController
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
+import com.jmc4dev.eventscounterapp.utils.getTimeFormatted
 import com.jmc4dev.eventscounterapp.viewmodels.CountersViewModel
 import eventscounterapp.R
 
@@ -86,39 +87,54 @@ fun ResultsScreen(navController: NavController, namesViewModel: CountersViewMode
                             .padding(12.dp),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Box(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(vertical = 6.dp),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Text(
+                        if (item.totalTime > 0) {
+                            Box(
                                 modifier = Modifier
-                                    .fillMaxWidth(),
-                                text = item.counterName,
-                                style = MaterialTheme.typography.h6,
-                                textDecoration = TextDecoration.Underline
-                            )
-                        }
-                        Box(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(vertical = 6.dp),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            LazyColumn(
-                                modifier = Modifier.fillMaxWidth(),
-                                horizontalAlignment = Alignment.CenterHorizontally
+                                    .fillMaxWidth()
+                                    .padding(vertical = 6.dp),
+                                contentAlignment = Alignment.Center
                             ) {
-                                items(item.laps) { lap ->
-                                    Text(
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .padding(vertical = 4.dp),
-                                        text = lap,
-                                        fontSize = 18.sp
-                                    )
+                                Text(
+                                    modifier = Modifier
+                                        .fillMaxWidth(),
+                                    text = item.counterName,
+                                    style = MaterialTheme.typography.h6,
+                                    textDecoration = TextDecoration.Underline
+                                )
+                            }
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(vertical = 6.dp),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                LazyColumn(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    horizontalAlignment = Alignment.CenterHorizontally
+                                ) {
+                                    items(item.laps) { lap ->
+                                        Text(
+                                            modifier = Modifier
+                                                .fillMaxWidth()
+                                                .padding(vertical = 4.dp),
+                                            text = lap,
+                                            fontSize = 18.sp
+                                        )
+                                    }
                                 }
+                            }
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(vertical = 6.dp),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Text(
+                                    modifier = Modifier
+                                        .fillMaxWidth(),
+                                    text = getTimeFormatted(item.totalTime),
+                                    style = MaterialTheme.typography.h6,
+                                )
                             }
                         }
                     }

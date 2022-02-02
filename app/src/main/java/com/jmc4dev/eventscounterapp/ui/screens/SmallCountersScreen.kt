@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.jmc4dev.eventscounterapp.components.TimerControlsRow
 import com.jmc4dev.eventscounterapp.ui.CreateCircle
+import com.jmc4dev.eventscounterapp.utils.getTimeFormatted
 import com.jmc4dev.eventscounterapp.viewmodels.CountersViewModel
 import com.jmc4dev.eventscounterapp.viewmodels.MainViewModel
 import com.jmc4dev.eventscounterapp.viewmodels.keepScreen
@@ -112,7 +113,7 @@ fun SmallCountersScreen(
                 )
             }
             if (activateTimer.value) {
-                val timeFormatted = mainViewModel.getTimeFormatted(mainTimer.value)
+                val timeFormatted = getTimeFormatted(mainTimer.value)
                 Text(
                     text = timeFormatted,
                     fontSize = 20.sp
@@ -148,7 +149,7 @@ fun SmallCountersScreen(
                                 )
                                 Spacer(modifier = Modifier.width(12.dp))
                                 Text(
-                                    text = if (mainViewModel.countersLaps.size > 0) mainViewModel.getTimeFormatted(
+                                    text = if (mainViewModel.countersLaps.size > 0) getTimeFormatted(
                                         mainViewModel.countersLaps[i - 1].value
                                     )
                                     else "00:00",
@@ -165,12 +166,13 @@ fun SmallCountersScreen(
                     ) { newValue ->
                         // When the user needs the timers, do not allow to click the counter if
                         // the  timers are not running
-                        if (runTimer.value || activateTimer.value) {
+                        if (runTimer.value || !activateTimer.value) {
                             countersList[i - 1].value = newValue
                             countersNamesList.value[i - 1].counterValue = newValue
                             countersNamesList.value[i - 1].laps.add(
-                                mainViewModel.getTimeFormatted(mainViewModel.countersLaps[i - 1].value)
+                                getTimeFormatted(mainViewModel.countersLaps[i - 1].value)
                             )
+                            countersNamesList.value[i - 1].totalTime += mainViewModel.countersLaps[i - 1].value
                             mainViewModel.resetLapTimer(i - 1)
                         }
                     }

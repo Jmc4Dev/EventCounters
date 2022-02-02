@@ -29,6 +29,7 @@ fun MainScreen(
 ) {
     val sliderValue = mainViewModel.sliderValue
     val activateTimer = mainViewModel.activateTimer
+    val runTimer = mainViewModel.runTimer
 
     Scaffold(
         topBar = {
@@ -41,6 +42,7 @@ fun MainScreen(
             )
         }
     ) {
+        runTimer.value = false
         Column(
             modifier = Modifier
                 .fillMaxSize(),

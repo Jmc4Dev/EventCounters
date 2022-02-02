@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.jmc4dev.eventscounterapp.components.TimerControlsRow
 import com.jmc4dev.eventscounterapp.ui.CreateCircle
+import com.jmc4dev.eventscounterapp.utils.getTimeFormatted
 import com.jmc4dev.eventscounterapp.viewmodels.CountersViewModel
 import com.jmc4dev.eventscounterapp.viewmodels.MainViewModel
 import com.jmc4dev.eventscounterapp.viewmodels.keepScreen
@@ -87,7 +88,7 @@ fun BigCountersScreen(
                 )
             }
             if (activateTimer.value) {
-                val timeFormatted = mainViewModel.getTimeFormatted(mainTimer.value)
+                val timeFormatted = getTimeFormatted(mainTimer.value)
                 Text(
                     text = timeFormatted,
                     fontSize = 24.sp
@@ -114,8 +115,9 @@ fun BigCountersScreen(
                             countersList[i - 1].value = newValue
                             countersNamesList.value[i - 1].counterValue = newValue
                             countersNamesList.value[i - 1].laps.add(
-                                mainViewModel.getTimeFormatted(mainViewModel.countersLaps[i - 1].value)
+                                getTimeFormatted(mainViewModel.countersLaps[i - 1].value)
                             )
+                            countersNamesList.value[i - 1].totalTime += mainViewModel.countersLaps[i - 1].value
                             mainViewModel.resetLapTimer(i - 1)
                         }
                     }
@@ -134,7 +136,7 @@ fun BigCountersScreen(
                             )
                             Spacer(modifier = Modifier.width(16.dp))
                             Text(
-                                text = if (mainViewModel.countersLaps.size > 0) mainViewModel.getTimeFormatted(
+                                text = if (mainViewModel.countersLaps.size > 0) getTimeFormatted(
                                     mainViewModel.countersLaps[i - 1].value
                                 )
                                 else "00:00",

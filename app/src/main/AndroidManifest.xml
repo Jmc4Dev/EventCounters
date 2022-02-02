@@ -13,12 +13,12 @@
         <activity
             android:name="com.jmc4dev.eventscounterapp.MainActivity"
             android:exported="true"
+            android:screenOrientation="locked"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustResize"
             android:theme="@style/Theme.EventsCounterApp.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
