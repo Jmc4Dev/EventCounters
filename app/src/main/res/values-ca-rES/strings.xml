@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Comptadors</string>
+    <string name="app_name">Timers</string>
     <string name="splash_screen_logo">Logo pantalla inicial</string>
     <string name="counter">COMPTADOR</string>
     <string name="how_many_counters">Quants comptadors necessites?</string>
@@ -12,4 +12,5 @@
     <string name="activate_timer">Activar Cronòmetre</string>
     <string name="results">Resultats</string>
     <string name="ad_id_banner">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="name">Nom</string>
 </resources>

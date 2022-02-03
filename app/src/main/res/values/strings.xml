@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Counters</string>
+    <string name="app_name">Timers</string>
     <string name="splash_screen_logo">Splash screen logo</string>
     <string name="counter">COUNTER</string>
     <string name="how_many_counters">How many counters do you need?</string>
@@ -10,5 +10,6 @@
     <string name="no_timer">No Timer</string>
     <string name="activate_timer">Activate Timer</string>
     <string name="results">Results</string>
-    <string name="ad_id_banner">ca-app-pub-3940256099942544/6300978111</string>  <!-- Test Id -->
+    <string name="ad_id_banner">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="name">Name</string>  <!-- Test Id -->
 </resources>

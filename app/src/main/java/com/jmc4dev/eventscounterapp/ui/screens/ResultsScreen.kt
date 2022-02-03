@@ -76,22 +76,22 @@ fun ResultsScreen(navController: NavController, namesViewModel: CountersViewMode
             )
             LazyRow(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp),
+                    .background(Color(0xFFE8E8E8))
+                    .padding(1.dp),
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.Top
             ) {
                 items(namesViewModel.countersObjectList.value) { item ->
                     Column(
                         modifier = Modifier
-                            .padding(12.dp),
+                            .padding(4.dp),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         if (item.totalTime > 0) {
                             Box(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(vertical = 6.dp),
+                                    .padding(vertical = 4.dp),
                                 contentAlignment = Alignment.Center
                             ) {
                                 Text(
@@ -105,7 +105,7 @@ fun ResultsScreen(navController: NavController, namesViewModel: CountersViewMode
                             Box(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(vertical = 6.dp),
+                                    .padding(vertical = 4.dp),
                                 contentAlignment = Alignment.Center
                             ) {
                                 LazyColumn(
@@ -126,7 +126,7 @@ fun ResultsScreen(navController: NavController, namesViewModel: CountersViewMode
                             Box(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(vertical = 6.dp),
+                                    .padding(vertical = 4.dp),
                                 contentAlignment = Alignment.Center
                             ) {
                                 Text(

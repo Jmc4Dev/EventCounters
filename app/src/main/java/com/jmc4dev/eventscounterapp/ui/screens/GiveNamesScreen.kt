@@ -135,7 +135,7 @@ fun IdentifyCounter(counter: Int, totalCounters: Int, name: String, updateName: 
             .padding(horizontal = 40.dp, vertical = 12.dp)
             .background(color = Color.White, shape = RoundedCornerShape(12.dp)),
         placeholder = {
-            Text(text = "Counter $counter", color = Color.DarkGray)
+            Text(text = "${stringResource(id = R.string.name)} $counter", color = Color.DarkGray)
         },
         value = name,
         onValueChange = { newName -> updateName(newName) },
