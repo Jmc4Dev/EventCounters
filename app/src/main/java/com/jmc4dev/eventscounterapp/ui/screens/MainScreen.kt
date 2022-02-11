@@ -68,9 +68,22 @@ fun MainScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.SpaceEvenly
             ) {
+                Row {
+                    Text(
+                        text = stringResource(R.string.activate_timer),
+                        fontSize = 26.sp
+                    )
+                    Spacer(modifier = Modifier.width(24.dp))
+                    Switch(
+                        checked = activateTimer.value,
+                        onCheckedChange = {
+                            activateTimer.value = it
+                        }
+                    )
+                }
                 CustomSlider(
                     modifier = Modifier.padding(horizontal = 40.dp),
-                    message = stringResource(R.string.how_many_counters),
+                    message = if (activateTimer.value) stringResource(R.string.how_may_timers) else stringResource(R.string.how_many_counters),
                     numberOfOptions = 5,
                     sliderValue = sliderValue.value
                 ) { newValue ->
@@ -105,20 +118,6 @@ fun MainScreen(
                     },
                     text = stringResource(R.string.count)
                 )
-
-                Row {
-                    Text(
-                        text = stringResource(R.string.activate_timer),
-                        fontSize = 28.sp
-                    )
-                    Spacer(modifier = Modifier.width(32.dp))
-                    Switch(
-                        checked = activateTimer.value,
-                        onCheckedChange = {
-                            activateTimer.value = it
-                        }
-                    )
-                }
             }
         }
     }

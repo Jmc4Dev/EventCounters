@@ -1,5 +1,6 @@
 package com.jmc4dev.eventscounterapp.ui.screens
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -87,13 +88,10 @@ fun GiveNamesScreen(
                         totalCounters = counters,
                         name = name.value,
                         updateName = { newEntry ->
-                            if (newEntry.length < 11) {
+                            Log.d("COUNTER-INFO", "Name: ${newEntry}, previous: ${name.value}")
+                            if (newEntry.length < 9) {
                                 name.value = newEntry
                                 countersList.value[i].counterName = newEntry
-                            }
-                            else {
-                                name.value = name.value
-                                countersList.value[i].counterName = name.value
                             }
                         }
                     )

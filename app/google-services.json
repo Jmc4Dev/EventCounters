@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1043657438824",
+    "project_id": "timers-1a77a",
+    "storage_bucket": "timers-1a77a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1043657438824:android:754537c61414b58ef06ddd",
+        "android_client_info": {
+          "package_name": "com.jmc4dev.eventscounterapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1043657438824-fvdvb0ee96jhgseffvmci4m6o3lsv95t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAirDnLm7MwIMGCUcuW6qKSOlelWzSb8BQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1043657438824-fvdvb0ee96jhgseffvmci4m6o3lsv95t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

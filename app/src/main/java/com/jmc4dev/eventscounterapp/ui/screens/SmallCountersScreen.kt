@@ -101,24 +101,6 @@ fun SmallCountersScreen(
             verticalArrangement = Arrangement.SpaceAround,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            if (activateTimer.value) {
-                TimerControlsRow(
-                    navController = navController,
-                    boxSize = 40.dp,
-                    iconSize = 60.dp,
-                    mainViewModel = mainViewModel,
-                    countersNamesList = namesViewModel,
-                    scope = scope,
-                    delayTime = 97L
-                )
-            }
-            if (activateTimer.value) {
-                val timeFormatted = getTimeFormatted(mainTimer.value)
-                Text(
-                    text = timeFormatted,
-                    fontSize = 20.sp
-                )
-            }
             for (i in 1..counters) {
                 Row(
                     modifier = Modifier
@@ -177,6 +159,25 @@ fun SmallCountersScreen(
                         }
                     }
                 }
+            }
+            if (activateTimer.value) {
+                TimerControlsRow(
+                    navController = navController,
+                    boxSize = 40.dp,
+                    iconSize = 60.dp,
+                    mainViewModel = mainViewModel,
+                    countersNamesList = namesViewModel,
+                    scope = scope,
+                    delayTime = 97L
+                )
+            }
+            if (activateTimer.value) {
+                val timeFormatted = getTimeFormatted(mainTimer.value)
+                Text(
+                    text = timeFormatted,
+                    fontSize = 20.sp
+                )
+                Spacer(modifier = Modifier.height(8.dp))
             }
         }
     }

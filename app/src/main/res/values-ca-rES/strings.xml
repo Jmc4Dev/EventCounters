@@ -2,8 +2,8 @@
 <resources>
     <string name="app_name">Timers</string>
     <string name="splash_screen_logo">Logo pantalla inicial</string>
-    <string name="counter">COMPTADOR</string>
-    <string name="how_many_counters">Quants comptadors necessites?</string>
+    <string name="counter">TIMER</string>
+    <string name="how_many_counters">Quants comptadors vols?</string>
     <string name="identify_counters">POSAR NOMS</string>
     <string name="count">COMPTAR</string>
     <string name="give_names_to_counters">Posar noms als comptadors</string>
@@ -13,4 +13,8 @@
     <string name="results">Resultats</string>
     <string name="ad_id_banner">ca-app-pub-3940256099942544/6300978111</string>
     <string name="name">Nom</string>
+    <string name="how_may_timers">Quants cronòmetres vols?</string>
+    <string name="got_it">ENTESOS!!</string>
+    <string name="help">AJUDA</string>
+    <string name="help_message_1">Tria quans cronòmetres o comptadors necessites. Quan hagis escollit quants vols, els hi pots posar noms per identifiar-los millor</string>
 </resources>

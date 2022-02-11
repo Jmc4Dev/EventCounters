@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Timers</string>
     <string name="splash_screen_logo">Splash screen logo</string>
-    <string name="counter">COUNTER</string>
+    <string name="counter">TIMER</string>
     <string name="how_many_counters">How many counters do you need?</string>
     <string name="identify_counters">GIVE NAMES</string>
     <string name="count">COUNT</string>
@@ -10,6 +10,10 @@
     <string name="no_timer">No Timer</string>
     <string name="activate_timer">Activate Timer</string>
     <string name="results">Results</string>
-    <string name="ad_id_banner">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="name">Name</string>  <!-- Test Id -->
+    <string name="ad_id_banner">ca-app-pub-3940256099942544/6300978111</string>  <!-- Test Id -->
+    <string name="name">Name</string>
+    <string name="how_may_timers">How many timers do you need?</string>
+    <string name="got_it">GOT IT!!</string>
+    <string name="help">HELP</string>
+    <string name="help_message_1">Choose how many timers or counters do you need. Once you have choosen the number, you can give them names to help you identify them</string>
 </resources>

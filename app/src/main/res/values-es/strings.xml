@@ -2,8 +2,8 @@
 <resources>
     <string name="app_name">Timers</string>
     <string name="splash_screen_logo">Logo pantalla inicial</string>
-    <string name="counter">CONTADOR</string>
-    <string name="how_many_counters">¿Cuantos contadores necesitas?</string>
+    <string name="counter">TIMER</string>
+    <string name="how_many_counters">¿Cuantos contadores quieres?</string>
     <string name="identify_counters">PONER NOMBRES</string>
     <string name="count">CONTAR</string>
     <string name="give_names_to_counters">Poner nombres a los contadores</string>
@@ -13,4 +13,8 @@
     <string name="results">Resultados</string>
     <string name="ad_id_banner">ca-app-pub-3940256099942544/6300978111</string>
     <string name="name">Nombre</string>
+    <string name="how_may_timers">¿Cuantos cronómetros quieres?</string>
+    <string name="got_it">ENTENDIDO!!</string>
+    <string name="help">AYUDA</string>
+    <string name="help_message_1">Elige cuantos cronómetros o contadores necesitas. Una vez hayas elegido cuantos quieres, les puedes poner nombres para identificarlos mejor.</string>
 </resources>

@@ -1,22 +1,27 @@
 package com.jmc4dev.eventscounterapp.ui.screens
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
+import android.util.Log
+import androidx.compose.foundation.*
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.rememberScrollableState
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
@@ -53,7 +58,8 @@ fun ResultsScreen(navController: NavController, namesViewModel: CountersViewMode
         }
     ) {
         Column(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize(),
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -74,67 +80,68 @@ fun ResultsScreen(navController: NavController, namesViewModel: CountersViewMode
                 text = stringResource(id = R.string.results),
                 style = MaterialTheme.typography.h3
             )
-            LazyRow(
-                modifier = Modifier
-                    .background(Color(0xFFE8E8E8))
-                    .padding(1.dp),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.Top
-            ) {
-                items(namesViewModel.countersObjectList.value) { item ->
-                    Column(
-                        modifier = Modifier
-                            .padding(4.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally
+            LazyColumn() {
+                items(1) {
+                    LazyRow(
+                        horizontalArrangement = Arrangement.Center,
+                        verticalAlignment = Alignment.Top
                     ) {
-                        if (item.totalTime > 0) {
-                            Box(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(vertical = 4.dp),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Text(
+                        items(namesViewModel.countersObjectList.value) { item ->
+                            if (item.totalTime > 0) {
+                                Column(
                                     modifier = Modifier
-                                        .fillMaxWidth(),
-                                    text = item.counterName,
-                                    style = MaterialTheme.typography.h6,
-                                    textDecoration = TextDecoration.Underline
-                                )
-                            }
-                            Box(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(vertical = 4.dp),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                LazyColumn(
-                                    modifier = Modifier.fillMaxWidth(),
+                                        .border(width = 2.dp, color = Color.DarkGray)
+                                        .padding(4.dp),
                                     horizontalAlignment = Alignment.CenterHorizontally
                                 ) {
-                                    items(item.laps) { lap ->
+                                    Box(
+                                        modifier = Modifier
+                                            .padding(vertical = 4.dp),
+                                        contentAlignment = Alignment.Center
+                                    ) {
                                         Text(
                                             modifier = Modifier
-                                                .fillMaxWidth()
-                                                .padding(vertical = 4.dp),
-                                            text = lap,
-                                            fontSize = 18.sp
+                                                .fillMaxWidth(),
+                                            text = item.counterName,
+                                            style = MaterialTheme.typography.h6,
+                                            fontWeight = FontWeight.ExtraBold
                                         )
                                     }
+                                    Box(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .padding(vertical = 4.dp),
+                                        contentAlignment = Alignment.Center
+                                    ) {
+                                        Column(
+                                            modifier = Modifier.fillMaxWidth(),
+                                            horizontalAlignment = Alignment.CenterHorizontally
+                                        ) {
+                                            var pos = 0
+                                            item.laps.forEach { lap ->
+                                                Text(
+                                                    modifier = Modifier
+                                                        .padding(
+                                                            vertical = 4.dp,
+                                                            horizontal = 6.dp
+                                                        ),
+                                                    text = lap,
+                                                    fontSize = 18.sp
+                                                )
+                                                if (item.laps.size - 1 == pos) {
+                                                    Text(
+                                                        modifier = Modifier
+                                                            .background(color = Color(0xFFBDDAB3))
+                                                            .padding(horizontal = 2.dp),
+                                                        text = getTimeFormatted(item.totalTime),
+                                                        style = MaterialTheme.typography.h6,
+                                                    )
+                                                }
+                                                pos += 1
+                                            }
+                                        }
+                                    }
                                 }
-                            }
-                            Box(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(vertical = 4.dp),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Text(
-                                    modifier = Modifier
-                                        .fillMaxWidth(),
-                                    text = getTimeFormatted(item.totalTime),
-                                    style = MaterialTheme.typography.h6,
-                                )
                             }
                         }
                     }
